@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
 import {Card} from "./components/Card";
@@ -7,7 +7,7 @@ import unliked from './image/search.svg';
 const data = [
 
     {
-        imageUrl: './image/arrow.svg',
+        imageUrl: '',
         title: 'Мужские Кроссовки Nike Blazer Mid Suede',
         priceTitle: 'Цена',
         price: 12999
@@ -33,6 +33,9 @@ const data = [
 ]
 
 export function App() {
+
+
+
     return (
         <div className="wrapper">
             <Drawer/>
@@ -52,10 +55,12 @@ export function App() {
                         imageUrl={obj.imageUrl}
                         price={obj.price}
                         priceTitle={obj.priceTitle}
-                        onClick={() => console.log(obj)}
+                        onClickFavorite={() => console.log('Добавили закладки')}
+                        onClickPlus={() => console.log('Нажали плюс')}
                     />)}
                 </div>
             </div>
         </div>
     );
 }
+
