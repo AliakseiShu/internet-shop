@@ -28,7 +28,7 @@ export const Card: FC<CardType> = ({
     }
 
     useEffect(() => {
-        console.log("Hi")
+        console.log("Hello")
     },[isAdded])
 
     return (
