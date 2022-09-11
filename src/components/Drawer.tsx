@@ -1,7 +1,4 @@
 import React, {FC} from 'react';
-//import btnRemove from '../../public/img/btn-remove.svg';
-//import arrow from '../../public/img/arrow.svg';
-
 
 type DrawerType = {
     onclickClose: () => void

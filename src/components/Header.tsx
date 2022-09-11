@@ -1,7 +1,4 @@
 import React, {FC} from 'react';
-//import logo from '../../public/img/logo.png';
-//import cart from '../../public/img/cart.svg';
-//import user from '../../public/img/user.svg';
 
 type HeaderType = {
     onclickOpenCart: () => void
@@ -19,7 +16,7 @@ export const Header:FC<HeaderType> = ({onclickOpenCart}) => {
             </div>
             <ul className="headerRight">
                 <li onClick={onclickOpenCart}>
-                    <img width={18} height={18} src='{cart}'  alt="Cart"/>
+                    <img width={18} height={18} src="./img/cart.svg"  alt="Cart"/>
                     <span>1205 руб.</span>
                 </li>
                 <li>
