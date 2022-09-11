@@ -1,8 +1,5 @@
 import React, {FC, useState} from 'react';
 import styles from './Card.module.scss';
-import unliked from './imageCard/unliked.svg';
-import plus from './imageCard/btn-plus.svg';
-import addCard from './imageCard/btn-checked.svg';
 
 type CardType = {
     imageUrl: string
@@ -30,7 +27,7 @@ export const Card: FC<CardType> = ({
     return (
         <div className={styles.card}>
             <div className={styles.favorite} onClick={onClickFavorite}>
-                <img src={unliked} alt="Unliked"/>
+                <img src="./img/unliked.svg" alt="Unliked"/>
             </div>
             <img width={133} height={112} src={imageUrl}/>
             <h5>{title}</h5>
@@ -41,7 +38,7 @@ export const Card: FC<CardType> = ({
                 </div>
                 <img className={styles.plus}
                      onClick={onClickAdd}
-                     src={isAdded ? addCard : plus}
+                     src={isAdded ? "./img/btn-checked.svg" : "./img/btn-plus.svg"}
                      alt="Plus"/>
             </div>
         </div>

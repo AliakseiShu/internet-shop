@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import logo from '../image/logo.png';
-import cart from '../image/cart.svg';
-import user from '../image/user.svg';
+//import logo from '../../public/img/logo.png';
+//import cart from '../../public/img/cart.svg';
+//import user from '../../public/img/user.svg';
 
 type HeaderType = {
     onclickOpenCart: () => void
@@ -11,7 +11,7 @@ export const Header:FC<HeaderType> = ({onclickOpenCart}) => {
     return (
         <header>
             <div className="headerLeft">
-                <img width={40} height={40} src={logo} alt="Logo"/>
+                <img width={40} height={40} src="./img/logo.png" alt="Logo"/>
                 <div>
                     <h3>React Sneakers</h3>
                     <p>Магазин лучших кроссовок</p>
@@ -19,11 +19,11 @@ export const Header:FC<HeaderType> = ({onclickOpenCart}) => {
             </div>
             <ul className="headerRight">
                 <li onClick={onclickOpenCart}>
-                    <img width={18} height={18} src={cart}  alt="Cart"/>
+                    <img width={18} height={18} src='{cart}'  alt="Cart"/>
                     <span>1205 руб.</span>
                 </li>
                 <li>
-                    <img width={18} height={18} src={user} alt="User"/>
+                    <img width={18} height={18} src='{user}' alt="User"/>
                 </li>
             </ul>
         </header>

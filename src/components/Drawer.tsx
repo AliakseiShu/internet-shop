@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
-import btnRemove from '../image/btn-remove.svg';
-import arrow from '../image/arrow.svg';
+//import btnRemove from '../../public/img/btn-remove.svg';
+//import arrow from '../../public/img/arrow.svg';
+
 
 type DrawerType = {
     onclickClose: () => void
@@ -10,23 +11,23 @@ export const Drawer:FC<DrawerType> = ({onclickClose}) => {
     return (
         <div className="overlay">
             <div className="drawer">
-                <h2>Корзина <img className="cartItemRemove" src={btnRemove} alt="Btn-remove" onClick={onclickClose}/></h2>
+                <h2>Корзина <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove" onClick={onclickClose}/></h2>
                 <div className="items">
                     <div className="cartItem">
-                        <img width={70} height={70} src="/public/assets/sneakers/2.jpg" alt="Sneakers"/>
+                        <img width={70} height={70} src="./img/sneakers/1.jpg" alt="Sneakers"/>
                         <div className="item">
                             <p>Мужские Кроссовки Nike Air Max 270</p>
                             <b>12 999 руб.</b>
                         </div>
-                        <img className="cartItemRemove" src={btnRemove} alt="Btn-remove"/>
+                        <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
                     </div>
                     <div className="cartItem">
-                        <img width={70} height={70} src="/public/assets/sneakers/2.jpg" alt="Sneakers"/>
+                        <img width={70} height={70} src="./img/sneakers/2.jpg" alt="Sneakers"/>
                         <div className="item">
                             <p>Мужские Кроссовки Nike Air Max 270</p>
                             <b>12 999 руб.</b>
                         </div>
-                        <img className="cartItemRemove" src={btnRemove} alt="Btn-remove"/>
+                        <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
                     </div>
                 </div>
                 <div className="cartTotalBlock">
@@ -42,7 +43,7 @@ export const Drawer:FC<DrawerType> = ({onclickClose}) => {
                             <b>1074 руб.</b>
                         </li>
                     </ul>
-                    <button className="greenButton">Оформить заказ <img src={arrow} alt="Arrow"/>
+                    <button className="greenButton">Оформить заказ <img src="./img/arrow.svg" alt="Arrow"/>
                     </button>
                 </div>
             </div>
