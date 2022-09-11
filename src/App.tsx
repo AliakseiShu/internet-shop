@@ -30,6 +30,10 @@ export function App() {
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)
     }
+    const oncClearSearchInput = () => {
+        setSearchValue('')
+    }
+
 
     return (
         <div className="wrapper">
@@ -48,14 +52,14 @@ export function App() {
                                onChange={onChangeSearchInput}
                                placeholder="Поиск..."/>
                         {searchValue &&
-                            <img onClick={() => setSearchValue('')}
+                            <img onClick={oncClearSearchInput}
                                  className="clear"
                                  src="./img/btn-remove.svg"
                                  alt="Clear"/>}
                     </div>
                 </div>
                 <div className="sneakers">
-                    {items.map((item, index) => <Card
+                    {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) => <Card
                         key={index}
                         title={item.title}
                         imageUrl={item.imageUrl}
