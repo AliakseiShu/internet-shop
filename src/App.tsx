@@ -1,45 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
 import {Card} from "./components/Card";
 
-const data = [
-    {
-        imageUrl: './img/sneakers/1.jpg',
-        title: 'Мужские Кроссовки Nike Blazer Mid Suede',
-        priceTitle: 'Цена',
-        price: 12999
-    },
-    {
-        imageUrl: './img/sneakers/2.jpg',
-        title: 'Мужские Кроссовки Nike Air Max 270',
-        priceTitle: 'Цена',
-        price: 9000
-    },
-    {
-        imageUrl: './img/sneakers/3.jpg',
-        title: 'Мужские Кроссовки Nike Air Max 270',
-        priceTitle: 'Цена',
-        price: 10999
-    },
-    {
-        imageUrl: './img/sneakers/4.jpg',
-        title: 'Кроссовки Puma X Aka Boku Future Rider',
-        priceTitle: 'Цена',
-        price: 11999
-    },
-]
-
+export type ItemsType = {
+    imageUrl: string
+    title: string
+    price: number
+}
 
 export function App() {
-    const [cartOpened, setCartOpened] = useState(true)
+
+    const [items, setItems] = useState<ItemsType[]>([])
+    const [cartItems, setCartItems] = useState<ItemsType[]>([])
+    const [cartOpened, setCartOpened] = useState(false)
+
+    useEffect(() => {
+        fetch('https://631dce89cc652771a48ba100.mockapi.io/items').then((res) => {
+            return res.json()
+        })
+            .then(json => setItems(json))
+
+    }, [])
+
+    const onAddToCart = (obj: ItemsType) => {
+        setCartItems([...cartItems,obj])
+    }
 
     return (
         <div className="wrapper">
-            {cartOpened && <Drawer  onclickClose={()=>setCartOpened(false)}/>}
+            {cartOpened && <Drawer cartItems={cartItems} onclickClose={() => setCartOpened(false)}/>}
             <Header
-                onclickOpenCart={()=>setCartOpened(true)}
-               />
+                onclickOpenCart={() => setCartOpened(true)}
+            />
             <div className="content">
                 <div className="contentWrapper">
                     <h1>Все кроссовки</h1>
@@ -49,14 +42,13 @@ export function App() {
                     </div>
                 </div>
                 <div className="sneakers">
-                    {data.map((obj, index) => <Card
+                    {items.map((item, index) => <Card
                         key={index}
-                        title={obj.title}
-                        imageUrl={obj.imageUrl}
-                        price={obj.price}
-                        priceTitle={obj.priceTitle}
+                        title={item.title}
+                        imageUrl={item.imageUrl}
+                        price={item.price}
                         onClickFavorite={() => console.log('Добавили закладки')}
-                        onClickPlus={() => console.log('Нажали плюс')}
+                        onClickPlus={(obj) => onAddToCart(obj)}
                     />)}
                 </div>
             </div>

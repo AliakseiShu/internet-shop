@@ -1,31 +1,27 @@
 import React, {FC} from 'react';
+import {ItemsType} from "../App";
 
 type DrawerType = {
     onclickClose: () => void
+    cartItems: ItemsType[]
 }
 
-export const Drawer:FC<DrawerType> = ({onclickClose}) => {
+export const Drawer:FC<DrawerType> = ({onclickClose, cartItems}) => {
     return (
         <div className="overlay">
             <div className="drawer">
                 <h2>Корзина <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove" onClick={onclickClose}/></h2>
                 <div className="items">
-                    <div className="cartItem">
-                        <img width={70} height={70} src="./img/sneakers/1.jpg" alt="Sneakers"/>
-                        <div className="item">
-                            <p>Мужские Кроссовки Nike Air Max 270</p>
-                            <b>12 999 руб.</b>
+                    {cartItems.map((item,index)=>(
+                        <div className="cartItem" key={index}>
+                            <img width={70} height={70} src={item.imageUrl} alt="Sneakers"/>
+                            <div className="item">
+                                <p>{item.title}</p>
+                                <b>{item.price}</b>
+                            </div>
+                            <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
                         </div>
-                        <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
-                    </div>
-                    <div className="cartItem">
-                        <img width={70} height={70} src="./img/sneakers/2.jpg" alt="Sneakers"/>
-                        <div className="item">
-                            <p>Мужские Кроссовки Nike Air Max 270</p>
-                            <b>12 999 руб.</b>
-                        </div>
-                        <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
-                    </div>
+                    ))}
                 </div>
                 <div className="cartTotalBlock">
                     <ul>
