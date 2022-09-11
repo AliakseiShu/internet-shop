@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
 import {Card} from "./components/Card";
@@ -33,13 +33,14 @@ const data = [
 ]
 
 export function App() {
-
-
+    const [cartOpened, setCartOpened] = useState(false)
 
     return (
         <div className="wrapper">
-            <Drawer/>
-            <Header/>
+            {cartOpened && <Drawer  onclickClose={()=>setCartOpened(false)}/>}
+            <Header
+                onclickOpenCart={()=>setCartOpened(true)}
+               />
             <div className="content">
                 <div className="contentWrapper">
                     <h1>Все кроссовки</h1>

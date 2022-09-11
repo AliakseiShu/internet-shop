@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import btnRemove from '../image/btn-remove.svg';
 import arrow from '../image/arrow.svg';
 
-export const Drawer = () => {
+type DrawerType = {
+    onclickClose: () => void
+}
+
+export const Drawer:FC<DrawerType> = ({onclickClose}) => {
     return (
-        <div style={{display: 'none'}} className="overlay">
+        <div className="overlay">
             <div className="drawer">
-                <h2>Корзина <img className="cartItemRemove" src={btnRemove} alt="Btn-remove"/></h2>
+                <h2>Корзина <img className="cartItemRemove" src={btnRemove} alt="Btn-remove" onClick={onclickClose}/></h2>
                 <div className="items">
                     <div className="cartItem">
                         <img width={70} height={70} src="/public/assets/sneakers/2.jpg" alt="Sneakers"/>

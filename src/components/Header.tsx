@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import logo from '../image/logo.png';
 import cart from '../image/cart.svg';
 import user from '../image/user.svg';
 
-export const Header = () => {
+type HeaderType = {
+    onclickOpenCart: () => void
+    }
+
+export const Header:FC<HeaderType> = ({onclickOpenCart}) => {
     return (
         <header>
             <div className="headerLeft">
@@ -14,8 +18,8 @@ export const Header = () => {
                 </div>
             </div>
             <ul className="headerRight">
-                <li>
-                    <img width={18} height={18} src={cart} alt="Cart"/>
+                <li onClick={onclickOpenCart}>
+                    <img width={18} height={18} src={cart}  alt="Cart"/>
                     <span>1205 руб.</span>
                 </li>
                 <li>

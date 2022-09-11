@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import styles from './Card.module.scss';
 import unliked from './imageCard/unliked.svg';
 import plus from './imageCard/btn-plus.svg';
@@ -26,10 +26,6 @@ export const Card: FC<CardType> = ({
     const onClickAdd = () => {
         setIsAdded(!isAdded)
     }
-
-    useEffect(() => {
-        console.log("Hello")
-    },[isAdded])
 
     return (
         <div className={styles.card}>

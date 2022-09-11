@@ -47,12 +47,14 @@ header {
 
 .headerRight {
   display: flex;
+  cursor: pointer;
 
   li {
     list-style-type: none;
 
     img {
       margin: 0 20px 0 30px;
+
     }
   }
 }
