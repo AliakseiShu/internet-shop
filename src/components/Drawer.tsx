@@ -2,15 +2,24 @@ import React, {FC} from 'react';
 import {ItemsType} from "../App";
 
 type DrawerType = {
+
     onclickClose: () => void
+    onRemoveCart: (id:string) => void
     cartItems: ItemsType[]
 }
 
-export const Drawer:FC<DrawerType> = ({onclickClose, cartItems}) => {
+export const Drawer:FC<DrawerType> = ({onclickClose, cartItems,onRemoveCart}) => {
     return (
         <div className="overlay">
             <div className="drawer">
-                <h2>Корзина <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove" onClick={onclickClose}/></h2>
+                <div className="cartEmpty">
+                    <img src="/img/empty-cart.jpg" alt="EmptyCart"/>
+                    <h2>Корзина <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove" onClick={onclickClose}/></h2>
+                    <p>Добавьте хотя бы одну пару кроссовок, стобы сделать заказ.</p>
+                    <button className="greenButton">
+                        <img src="/img/arrow.svg" alt="Arrow"/>Вернуться назад
+                    </button>
+                </div>
                 <div className="items">
                     {cartItems.map((item,index)=>(
                         <div className="cartItem" key={index}>
@@ -19,7 +28,7 @@ export const Drawer:FC<DrawerType> = ({onclickClose, cartItems}) => {
                                 <p>{item.title}</p>
                                 <b>{item.price}</b>
                             </div>
-                            <img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"/>
+                            <img className="cartItemRemove" onClick={()=>onRemoveCart(item.id)}  src="./img/btn-remove.svg" alt="Btn-remove"/>
                         </div>
                     ))}
                 </div>

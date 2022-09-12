@@ -3,7 +3,7 @@ import styles from './Card.module.scss';
 import {ItemsType} from "../../App";
 
 type CardType = {
-
+    id: string
     imageUrl: string
     title: string
     price: number
@@ -12,6 +12,7 @@ type CardType = {
 }
 
 export const Card: FC<CardType> = ({
+                                       id,
                                        imageUrl,
                                        title,
                                        price,
@@ -38,7 +39,7 @@ export const Card: FC<CardType> = ({
                     <b>{price} руб.</b>
                 </div>
                 <img className={styles.plus}
-                     onClick={() => onClickAdd({imageUrl,title,price})}
+                     onClick={() => onClickAdd({id, imageUrl, title, price})}
                      src={isAdded ? "./img/btn-checked.svg" : "./img/btn-plus.svg"}
                      alt="Plus"/>
             </div>

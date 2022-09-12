@@ -2,8 +2,10 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
 import {Card} from "./components/Card";
+import axios from "axios";
 
 export type ItemsType = {
+    id: string
     imageUrl: string
     title: string
     price: number
@@ -17,16 +19,23 @@ export function App() {
     const [searchValue, setSearchValue] = useState('')
 
     useEffect(() => {
-        fetch('https://631dce89cc652771a48ba100.mockapi.io/items').then((res) => {
-            return res.json()
+        axios.get('https://631dce89cc652771a48ba100.mockapi.io/items').then((res) => {
+            setItems(res.data)
         })
-            .then(json => setItems(json))
-
+        axios.get('https://631dce89cc652771a48ba100.mockapi.io/cart').then((res) => {
+            setCartItems(res.data)
+        })
     }, [])
 
     const onAddToCart = (obj: ItemsType) => {
+        axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
         setCartItems(prev => [...prev, obj])
     }
+    const onRemoveCart = (id: string) => {
+       // axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
+        setCartItems(prev => prev.filter((item)=> item.id !== id ))
+    }
+
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)
     }
@@ -34,10 +43,10 @@ export function App() {
         setSearchValue('')
     }
 
-
     return (
         <div className="wrapper">
             {cartOpened && <Drawer
+                onRemoveCart={onRemoveCart}
                 cartItems={cartItems}
                 onclickClose={() => setCartOpened(false)}/>}
             <Header
@@ -59,14 +68,16 @@ export function App() {
                     </div>
                 </div>
                 <div className="sneakers">
-                    {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) => <Card
-                        key={index}
-                        title={item.title}
-                        imageUrl={item.imageUrl}
-                        price={item.price}
-                        onClickFavorite={() => console.log('Добавили закладки')}
-                        onClickPlus={(obj) => onAddToCart(obj)}
-                    />)}
+                    {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) =>
+                        <Card
+                            key={index}
+                            id={item.id}
+                            title={item.title}
+                            imageUrl={item.imageUrl}
+                            price={item.price}
+                            onClickFavorite={() => console.log('Добавили закладки')}
+                            onClickPlus={(obj) => onAddToCart(obj)}
+                        />)}
                 </div>
             </div>
         </div>
