@@ -15,6 +15,7 @@ export function App() {
 
     const [items, setItems] = useState<ItemsType[]>([])
     const [cartItems, setCartItems] = useState<ItemsType[]>([])
+    const [favorites, setFavorites] = useState<ItemsType[]>([])
     const [cartOpened, setCartOpened] = useState(false)
     const [searchValue, setSearchValue] = useState('')
 
@@ -25,15 +26,22 @@ export function App() {
         axios.get('https://631dce89cc652771a48ba100.mockapi.io/cart').then((res) => {
             setCartItems(res.data)
         })
+        axios.get('https://631dce89cc652771a48ba100.mockapi.io/favorites').then((res) => {
+            setFavorites(res.data)
+        })
     }, [])
 
-    const onAddToCart = (obj: ItemsType) => {
+        const onAddToCart = (obj: ItemsType) => {
         axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
-        setCartItems(prev => [...prev, obj])
+        setCartItems((prev) => [...prev, obj])
     }
     const onRemoveCart = (id: string) => {
-       // axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
-        setCartItems(prev => prev.filter((item)=> item.id !== id ))
+        axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
+        setCartItems(prev => prev.filter((item) => item.id !== id))
+    }
+    const onAddToFavorite = (obj: ItemsType) => {
+        axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
+        setFavorites((prev) => [...prev, obj])
     }
 
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -42,15 +50,18 @@ export function App() {
     const oncClearSearchInput = () => {
         setSearchValue('')
     }
+    const onclickClose = () => {
+        setCartOpened(!cartOpened)
+    }
 
     return (
         <div className="wrapper">
             {cartOpened && <Drawer
                 onRemoveCart={onRemoveCart}
                 cartItems={cartItems}
-                onclickClose={() => setCartOpened(false)}/>}
+                onclickClose={onclickClose}/>}
             <Header
-                onclickOpenCart={() => setCartOpened(true)}
+                onclickOpenCart={onclickClose}
             />
             <div className="content">
                 <div className="contentWrapper">
@@ -68,15 +79,17 @@ export function App() {
                     </div>
                 </div>
                 <div className="sneakers">
-                    {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase())).map((item, index) =>
+                    {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+                        .map((item, index) =>
                         <Card
                             key={index}
                             id={item.id}
                             title={item.title}
                             imageUrl={item.imageUrl}
                             price={item.price}
-                            onClickFavorite={() => console.log('Добавили закладки')}
+                            onClickFavorite={(obj) => onAddToFavorite(obj)}
                             onClickPlus={(obj) => onAddToCart(obj)}
+
                         />)}
                 </div>
             </div>

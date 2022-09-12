@@ -7,7 +7,7 @@ type CardType = {
     imageUrl: string
     title: string
     price: number
-    onClickFavorite: () => void
+    onClickFavorite: (obj:ItemsType) => void
     onClickPlus: (obj: ItemsType) => void
 }
 
@@ -16,20 +16,26 @@ export const Card: FC<CardType> = ({
                                        imageUrl,
                                        title,
                                        price,
-                                       onClickPlus
+                                       onClickPlus,
+                                       onClickFavorite
                                    }) => {
 
     const [isAdded, setIsAdded] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(false)
 
     const onClickAdd = (obj: ItemsType) => {
         onClickPlus(obj)
         setIsAdded(!isAdded)
     }
+    const onClickLike = (obj: ItemsType) => {
+        onClickFavorite(obj)
+        setIsFavorite(!isFavorite)
+    }
 
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
-                <img src="./img/unliked.svg" alt="Unliked"/>
+                <img onClick={() => onClickLike({id, imageUrl, title, price})} src={isFavorite ? "/img/liked.svg" : "./img/unliked.svg"} alt="Unliked"/>
             </div>
             <img width={133} height={112} src={imageUrl}/>
             <h5>{title}</h5>

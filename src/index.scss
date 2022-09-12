@@ -146,6 +146,44 @@ header {
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
 
+  .cartEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    .emptyImage {
+      margin-bottom: 20px;
+      width: 120px;
+      height: 120px;
+    }
+
+    p {
+      width: 280px;
+      line-height: 24px;
+      opacity: 0.6;
+    }
+
+    .imgArrow {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+
+    .greenButton {
+      position: relative;
+
+      &:hover {
+        img {
+          transform: rotate(180deg) translateX(5px);
+        }
+      }
+    }
+  }
+
   .items {
     flex: 1;
     overflow: auto;
@@ -162,7 +200,6 @@ header {
     }
   }
 }
-
 
 .cartItem {
   display: flex;
