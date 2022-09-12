@@ -20,6 +20,9 @@ export const Header:FC<HeaderType> = ({onclickOpenCart}) => {
                     <span>1205 руб.</span>
                 </li>
                 <li>
+                    <img width={18} height={18} src="./img/heart.svg" alt="Heart"/>
+                </li>
+                <li>
                     <img width={18} height={18} src="./img/user.svg" alt="User"/>
                 </li>
             </ul>

@@ -47,9 +47,11 @@ export function App() {
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)
     }
+
     const oncClearSearchInput = () => {
         setSearchValue('')
     }
+
     const onclickClose = () => {
         setCartOpened(!cartOpened)
     }
