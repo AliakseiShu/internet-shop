@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
-import {Card} from "./components/Card";
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
+import {Favorites} from "./pages/Favorites";
 
 export type ItemsType = {
     id: string
@@ -31,19 +31,19 @@ export function App() {
         })
     }, [])
 
-     const onAddToCart = (obj: ItemsType) => {
-         axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
-         setCartItems((prev) => [...prev, obj])
-     }
+    const onAddToCart = (obj: ItemsType) => {
+        axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
+        setCartItems((prev) => [...prev, obj])
+    }
 
     const onRemoveCart = (id: string) => {
         axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
         setCartItems(prev => prev.filter((item) => item.id !== id))
     }
-     const onAddToFavorite = (obj: ItemsType) => {
-         axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
-         setFavorites((prev) => [...prev, obj])
-     }
+    const onAddToFavorite = (obj: ItemsType) => {
+        axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
+        setFavorites((prev) => [...prev, obj])
+    }
 
     /*   const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
            setSearchValue(event.currentTarget.value)
@@ -67,17 +67,17 @@ export function App() {
                 onclickOpenCart={onclickClose}
             />
             <Routes>
-                <Route path="/" element={<div>
+                <Route path="/" element={
                     <Home items={items}
                           onAddToCart={onAddToCart}
                           onAddToFavorite={onAddToFavorite}
                     />
-                </div>}/>
-                <Route path={'/favorites'} element={<div>Hi</div>}/>
+                }/>
+                <Route path={'/favorites'} element={
+                    <Favorites/>}/>
                 <Route path={'/*'} element={<div>404</div>}/>
             </Routes>
         </div>
-
     );
 }
 
