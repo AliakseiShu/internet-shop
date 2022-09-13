@@ -31,7 +31,6 @@ export const Card: FC<CardType> = ({
         onClickFavorite(obj)
         setIsFavorite(!isFavorite)
     }
-
     return (
         <div className={styles.card}>
             <div className={styles.favorite}>
