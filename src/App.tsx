@@ -5,6 +5,7 @@ import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
+import {Page404} from "./pages/Page404";
 
 export type ItemsType = {
     id: string
@@ -40,18 +41,19 @@ export function App() {
         axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
         setCartItems(prev => prev.filter((item) => item.id !== id))
     }
-    const onAddToFavorite = (obj: ItemsType) => {
-        axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
-        setFavorites((prev) => [...prev, obj])
+    const onAddToFavorite = async (obj: ItemsType) => {
+        try {
+            if (favorites.find(favObj => favObj.id === obj.id)) {
+                axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/favorites/${obj.id}`)
+                setFavorites((prev) => prev.filter(el => el.id !== obj.id))
+            } else {
+                const {data} = await axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
+                setFavorites((prev) => [...prev, data])
+            }
+        } catch (error) {
+            alert("Error")
+        }
     }
-
-    /*   const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-           setSearchValue(event.currentTarget.value)
-       }
-
-       const oncClearSearchInput = () => {
-           setSearchValue('')
-       }*/
 
     const onclickClose = () => {
         setCartOpened(!cartOpened)
@@ -74,8 +76,11 @@ export function App() {
                     />
                 }/>
                 <Route path={'/favorites'} element={
-                    <Favorites/>}/>
-                <Route path={'/*'} element={<div>404</div>}/>
+                    <Favorites favorites={favorites}
+                               onAddToFavorite={onAddToFavorite}
+                    />
+                }/>
+                <Route path={'/*'} element={<Page404/>}/>
             </Routes>
         </div>
     );

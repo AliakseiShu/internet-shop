@@ -8,9 +8,8 @@ type HeaderType = {
 export const Header: FC<HeaderType> = ({onclickOpenCart}) => {
     return (
         <header>
-
                 <div className="headerLeft">
-                     <NavLink  style={{color:"black"}} to="/">
+                     <NavLink to="/">
                     <img width={40} height={40} src="./img/logo.png" alt="Logo"/>
                      </NavLink>
                     <div>

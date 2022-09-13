@@ -7,8 +7,9 @@ type CardType = {
     imageUrl: string
     title: string
     price: number
-    onClickFavorite: (obj:ItemsType) => void
-    onClickPlus: (obj: ItemsType) => void
+    onClickFavorite?: (obj:ItemsType) => void
+    onClickPlus?: (obj: ItemsType ) => void
+    isFavorited?: boolean
 }
 
 export const Card: FC<CardType> = ({
@@ -17,18 +18,23 @@ export const Card: FC<CardType> = ({
                                        title,
                                        price,
                                        onClickPlus,
-                                       onClickFavorite
+                                       onClickFavorite,
+                                       isFavorited= false
                                    }) => {
 
     const [isAdded, setIsAdded] = useState(false)
-    const [isFavorite, setIsFavorite] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(isFavorited)
 
-    const onClickAdd = (obj: ItemsType) => {
-        onClickPlus(obj)
+    const onClickAdd = (obj: ItemsType  ) => {
+        if (onClickPlus) {
+            onClickPlus(obj)
+        }
         setIsAdded(!isAdded)
     }
     const onClickLike = (obj: ItemsType) => {
-        onClickFavorite(obj)
+        if (onClickFavorite) {
+            onClickFavorite(obj)
+        }
         setIsFavorite(!isFavorite)
     }
     return (

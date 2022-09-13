@@ -4,8 +4,8 @@ import {ItemsType} from "../App";
 
 type HomeType = {
     items: ItemsType[]
-    onAddToCart: (obj: ItemsType) => void
-    onAddToFavorite: (obj: ItemsType) => void
+    onAddToCart: (obj:ItemsType) => void
+    onAddToFavorite: (obj:ItemsType) => void
 }
 
 export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite}) => {
