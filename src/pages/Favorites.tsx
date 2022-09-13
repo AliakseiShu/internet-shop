@@ -4,27 +4,26 @@ import {Card} from "../components/Card";
 
 type FavoritesType = {
     favorites: ItemsType[]
-    onAddToFavorite: (obj:ItemsType) => void
+    onAddToFavorite: (obj: ItemsType) => void
 }
 
-export const Favorites: FC<FavoritesType> = ({favorites,onAddToFavorite}) => {
-
+export const Favorites: FC<FavoritesType> = ({favorites, onAddToFavorite}) => {
     return (
         <div className="content">
             <div className="contentWrapper">
                 <h1>Мои закладки</h1>
             </div>
             <div className="sneakers">
-                    {favorites.map((item, index) =>
-                        <Card
-                            key={item.id}
-                            id={item.id}
-                            title={item.title}
-                            imageUrl={item.imageUrl}
-                            price={item.price}
-                            isFavorited={true}
-                            onClickFavorite={onAddToFavorite}
-                        />)}
+                {favorites.map((item, index) =>
+                    <Card
+                        key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        imageUrl={item.imageUrl}
+                        price={item.price}
+                        isFavorited
+                        onClickFavorite={onAddToFavorite}
+                    />)}
             </div>
         </div>
     );

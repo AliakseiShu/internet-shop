@@ -6,9 +6,10 @@ type HomeType = {
     items: ItemsType[]
     onAddToCart: (obj:ItemsType) => void
     onAddToFavorite: (obj:ItemsType) => void
+    cartItems:ItemsType[]
 }
 
-export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite}) => {
+export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite, cartItems}) => {
     const [searchValue, setSearchValue] = useState('')
 
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +47,7 @@ export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite}) => {
                             price={item.price}
                             onClickFavorite={(obj) => onAddToFavorite(obj)}
                             onClickPlus={(obj) => onAddToCart(obj)}
+                            isAdd = {cartItems.some(obj => obj.id === item.id)}
                         />)}
             </div>
         </div>
