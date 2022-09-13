@@ -4,12 +4,13 @@ import {ItemsType} from "../App";
 
 type HomeType = {
     items: ItemsType[]
-    onAddToCart: (obj:ItemsType) => void
-    onAddToFavorite: (obj:ItemsType) => void
-    cartItems:ItemsType[]
+    onAddToCart: (obj: ItemsType) => void
+    onAddToFavorite: (obj: ItemsType) => void
+    cartItems: ItemsType[]
+    isReady: boolean
 }
 
-export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite, cartItems}) => {
+export const Home: FC<HomeType> = ({items, onAddToCart, onAddToFavorite, cartItems, isReady}) => {
     const [searchValue, setSearchValue] = useState('')
 
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +21,25 @@ export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite, cartIt
         setSearchValue('')
     }
 
+    const renderItems = () => {
+        const filteredItems = items.filter(item =>
+            item.title.toLowerCase().includes(searchValue.toLowerCase()));
+        return (
+            isReady
+                ? Array(8).fill(8)
+                : filteredItems).map((item, index) =>
+            (<Card
+                key={index}
+                id={item.id}
+                title={item.title}
+                imageUrl={item.imageUrl}
+                price={item.price}
+                onClickFavorite={(obj) => onAddToFavorite(obj)}
+                onClickPlus={(obj) => onAddToCart(obj)}
+                isAdd={cartItems.some(obj => obj.id === item.id)}
+                isReady={isReady}
+            />))
+    }
     return (
         <div className="content">
             <div className="contentWrapper">
@@ -37,18 +57,7 @@ export const Home: FC<HomeType> = ({items , onAddToCart, onAddToFavorite, cartIt
                 </div>
             </div>
             <div className="sneakers">
-                {items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-                    .map((item, index) =>
-                        <Card
-                            key={index}
-                            id={item.id}
-                            title={item.title}
-                            imageUrl={item.imageUrl}
-                            price={item.price}
-                            onClickFavorite={(obj) => onAddToFavorite(obj)}
-                            onClickPlus={(obj) => onAddToCart(obj)}
-                            isAdd = {cartItems.some(obj => obj.id === item.id)}
-                        />)}
+                {renderItems()}
             </div>
         </div>
     );
