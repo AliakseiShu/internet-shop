@@ -26,7 +26,7 @@ export const Home: FC<HomeType> = ({items, onAddToCart, onAddToFavorite, cartIte
             item.title.toLowerCase().includes(searchValue.toLowerCase()));
         return (
             isReady
-                ? Array(8).fill(8)
+                ? Array(8).fill("")
                 : filteredItems).map((item, index) =>
             (<Card
                 key={index}
