@@ -6,8 +6,9 @@ import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
 import {Page404} from "./pages/Page404";
+import {AppContext} from './context';
 
-export type ItemsType = {
+export type ItemType = {
     id: string
     imageUrl: string
     title: string
@@ -15,12 +16,12 @@ export type ItemsType = {
 }
 
 export function App() {
-    const [items, setItems] = useState<ItemsType[]>([])
-    const [cartItems, setCartItems] = useState<ItemsType[]>([])
-    const [favorites, setFavorites] = useState<ItemsType[]>([])
+    const [items, setItems] = useState<ItemType[]>([])
+    const [cartItems, setCartItems] = useState<ItemType[]>([])
+    const [favorites, setFavorites] = useState<ItemType[] >([])
     const [cartOpened, setCartOpened] = useState(false)
     const [isReady, setIsReady] = useState(true)
-    console.log(isReady)
+
 
     useEffect(() => {
         async function fetchData() {
@@ -33,49 +34,51 @@ export function App() {
             setCartItems(cartResponse.data)
             setFavorites(favoritesResponse.data)
             setItems(itemsResponse.data)
+        }
+
+        fetchData()
+    }, [])
+
+    const onAddToCart = async (obj: ItemType) => {
+        try {
+            if (cartItems.find(cartObj => cartObj.id === obj.id)) {
+                axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${obj.id}`)
+                setCartItems(prev => prev.filter((item) => item.id !== obj.id))
+            } else {
+                const {data} = await axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
+                setCartItems((prev) => [...prev, data])
             }
-            fetchData()
-        },[])
-    console.log(isReady)
+        } catch (err: any) {
+            const error = err.message
+            console.log(error)
+        }
+    }
 
-        const onAddToCart = async (obj: ItemsType) => {
-            try {
-                if (cartItems.find(cartObj => cartObj.id === obj.id)) {
-                    axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${obj.id}`)
-                    setCartItems(prev => prev.filter((item) => item.id !== obj.id))
-                } else {
-                    const {data} = await axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
-                    setCartItems((prev) => [...prev, data])
-                }
-            } catch {
-                alert("Error")
+    const onRemoveCart = (id: string) => {
+        axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
+        setCartItems(prev => prev.filter((item) => item.id !== id))
+    }
+
+    const onAddToFavorite = async (obj: ItemType) => {
+        try {
+            if (favorites.find(favObj => favObj.id === obj.id)) {
+                axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/favorites/${obj.id}`)
+                setFavorites((prev) => prev.filter(el => el.id !== obj.id))
+            } else {
+                const {data} = await axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
+                setFavorites((prev) => [...prev, data])
             }
+        } catch (error) {
+            alert("Error")
         }
+    }
 
-        const onRemoveCart = (id: string) => {
-            axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${id}`)
-            setCartItems(prev => prev.filter((item) => item.id !== id))
-        }
+    const onclickClose = () => {
+        setCartOpened(!cartOpened)
+    }
 
-        const onAddToFavorite = async (obj: ItemsType) => {
-            try {
-                if (favorites.find(favObj => favObj.id === obj.id)) {
-                    axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/favorites/${obj.id}`)
-                    setFavorites((prev) => prev.filter(el => el.id !== obj.id))
-                } else {
-                    const {data} = await axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
-                    setFavorites((prev) => [...prev, data])
-                }
-            } catch (error) {
-                alert("Error")
-            }
-        }
-
-        const onclickClose = () => {
-            setCartOpened(!cartOpened)
-        }
-
-        return (
+    return (
+        <AppContext.Provider value={{favorites, items, cartItems}}>
             <div className="wrapper">
                 {cartOpened && <Drawer
                     onRemoveCart={onRemoveCart}
@@ -94,13 +97,14 @@ export function App() {
                         />
                     }/>
                     <Route path={'/favorites'} element={
-                        <Favorites favorites={favorites}
-                                   onAddToFavorite={onAddToFavorite}
+                        <Favorites
+                            onAddToFavorite={onAddToFavorite}
                         />
                     }/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>
-        );
-    }
+        </AppContext.Provider>
+    );
+}
 

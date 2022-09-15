@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {ItemsType} from "../App";
+import {ItemType} from "../App";
 
 type DrawerType = {
 
     onclickClose: () => void
     onRemoveCart: (id: string) => void
-    cartItems: ItemsType[]
+    cartItems: ItemType[]
 }
 
 export const Drawer: FC<DrawerType> = ({onclickClose, cartItems, onRemoveCart}) => {

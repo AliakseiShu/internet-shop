@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import styles from './Card.module.scss';
-import {ItemsType} from "../../App";
+import {ItemType} from "../../App";
 import ContentLoader from "react-content-loader";
 
 
@@ -9,8 +9,8 @@ type CardType = {
     imageUrl: string
     title: string
     price: number
-    onClickFavorite?: (obj: ItemsType) => void
-    onClickPlus?: (obj: ItemsType) => void
+    onClickFavorite?: (obj: ItemType) => void
+    onClickPlus?: (obj: ItemType) => void
     isFavorited?: boolean
     isAdd?: boolean
     isReady?: boolean
@@ -31,13 +31,13 @@ export const Card: FC<CardType> = ({
     const [isAdded, setIsAdded] = useState(isAdd)
     const [isFavorite, setIsFavorite] = useState(isFavorited)
 
-    const onClickAdd = (obj: ItemsType) => {
+    const onClickAdd = (obj: ItemType) => {
         if (onClickPlus) {
             onClickPlus(obj)
         }
         setIsAdded(!isAdded)
     }
-    const onClickLike = (obj: ItemsType) => {
+    const onClickLike = (obj: ItemType) => {
         if (onClickFavorite) {
             onClickFavorite(obj)
         }

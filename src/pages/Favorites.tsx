@@ -1,20 +1,24 @@
-import React, {FC} from 'react';
-import {ItemsType} from "../App";
+import React, {FC, useContext} from 'react';
+import {ItemType} from "../App";
 import {Card} from "../components/Card";
+import {AppContext} from "../context";
+
 
 type FavoritesType = {
-    favorites: ItemsType[]
-    onAddToFavorite: (obj: ItemsType) => void
+    // favorites: ItemsType[]
+    onAddToFavorite: (obj: ItemType) => void
 }
 
-export const Favorites: FC<FavoritesType> = ({favorites, onAddToFavorite}) => {
+export const Favorites: FC<FavoritesType> = ({onAddToFavorite}) => {
+    const {favorites} = useContext(AppContext)
+
     return (
         <div className="content">
             <div className="contentWrapper">
                 <h1>Мои закладки</h1>
             </div>
             <div className="sneakers">
-                {favorites.map((item, index) =>
+                 {favorites?.map((item) =>
                     <Card
                         key={item.id}
                         id={item.id}

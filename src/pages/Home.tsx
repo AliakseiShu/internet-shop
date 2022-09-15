@@ -1,12 +1,12 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {Card} from "../components/Card";
-import {ItemsType} from "../App";
+import {ItemType} from "../App";
 
 type HomeType = {
-    items: ItemsType[]
-    onAddToCart: (obj: ItemsType) => void
-    onAddToFavorite: (obj: ItemsType) => void
-    cartItems: ItemsType[]
+    items: ItemType[]
+    onAddToCart: (obj: ItemType) => void
+    onAddToFavorite: (obj: ItemType) => void
+    cartItems: ItemType[]
     isReady: boolean
 }
 
