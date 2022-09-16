@@ -1,7 +1,6 @@
-import React, {ChangeEvent, FC, useContext, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import {Card} from "../components/Card";
 import {ItemType} from "../App";
-import {AppContext} from "../context";
 
 type HomeType = {
     items: ItemType[]
@@ -9,7 +8,6 @@ type HomeType = {
     onAddToFavorite: (obj: ItemType) => void
     cartItems: ItemType[]
     isReady: boolean
-    //isItemAdded: (id:string) => void
 }
 
 export const Home: FC<HomeType> = ({items,
@@ -18,7 +16,6 @@ export const Home: FC<HomeType> = ({items,
                                        isReady,
                                        }) => {
     const [searchValue, setSearchValue] = useState('')
-   // const {isItemAdded} = useContext(AppContext)
 
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)

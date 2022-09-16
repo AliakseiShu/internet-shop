@@ -83,7 +83,7 @@ export function App() {
     }
 
     return (
-        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded}}>
+        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded, onAddToFavorite}}>
             <div className="wrapper">
                 {cartOpened && <Drawer
                     onRemoveCart={onRemoveCart}
@@ -101,11 +101,7 @@ export function App() {
                               isReady={isReady}
                         />
                     }/>
-                    <Route path={'/favorites'} element={
-                        <Favorites
-                            onAddToFavorite={onAddToFavorite}
-                        />
-                    }/>
+                    <Route path={'/favorites'} element={<Favorites/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>

@@ -4,12 +4,8 @@ import {Card} from "../components/Card";
 import {AppContext} from "../context";
 
 
-type FavoritesType = {
-    onAddToFavorite: (obj: ItemType) => void
-}
-
-export const Favorites: FC<FavoritesType> = ({onAddToFavorite}) => {
-    const {favorites} = useContext(AppContext)
+export const Favorites = () => {
+    const {favorites, onAddToFavorite} = useContext(AppContext)
 
     return (
         <div className="content">

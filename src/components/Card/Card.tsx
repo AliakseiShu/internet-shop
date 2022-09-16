@@ -25,21 +25,18 @@ export const Card: FC<CardType> = ({
                                        onClickPlus,
                                        onClickFavorite,
                                        isFavorited = false,
-                                       //isAdd = false,
                                        isReady
                                    }) => {
 
-    //const [isAdded, setIsAdded] = useState(isAdd)
     const [isFavorite, setIsFavorite] = useState(isFavorited)
     const {isItemAdded} = useContext(AppContext)
-    console.log(title, isItemAdded && isItemAdded(id))
 
     const onClickAdd = (obj: ItemType) => {
         if (onClickPlus) {
             onClickPlus(obj)
         }
-        //setIsAdded(!isAdded)
     }
+
     const onClickLike = (obj: ItemType) => {
         if (onClickFavorite) {
             onClickFavorite(obj)
@@ -56,12 +53,12 @@ export const Card: FC<CardType> = ({
                     height={250}
                     viewBox="0 0 155 265"
                     backgroundColor="#f3f3f3"
-                    foregroundColor="#ecebeb" >
-                    <rect x="0" y="0" rx="10" ry="10" width="155" height="155" />
-                    <rect x="0" y="167" rx="5" ry="5" width="155" height="15" />
-                    <rect x="0" y="187" rx="5" ry="5" width="100" height="15" />
-                    <rect x="0" y="234" rx="5" ry="5" width="80" height="25" />
-                    <rect x="124" y="230" rx="10" ry="10" width="32" height="32" />
+                    foregroundColor="#ecebeb">
+                    <rect x="0" y="0" rx="10" ry="10" width="155" height="155"/>
+                    <rect x="0" y="167" rx="5" ry="5" width="155" height="15"/>
+                    <rect x="0" y="187" rx="5" ry="5" width="100" height="15"/>
+                    <rect x="0" y="234" rx="5" ry="5" width="80" height="25"/>
+                    <rect x="124" y="230" rx="10" ry="10" width="32" height="32"/>
                 </ContentLoader>
                 : <>
                     <div className={styles.favorite}>
@@ -80,7 +77,7 @@ export const Card: FC<CardType> = ({
                              src={isItemAdded && isItemAdded(id) ? "./img/btn-checked.svg" : "./img/btn-plus.svg"}
                              alt="Plus"/>
                     </div>
-                </>            }
+                </>}
 
         </div>
     );

@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import {ItemType} from "../App";
+import {Info} from "./Info";
 
 type DrawerType = {
-
     onclickClose: () => void
     onRemoveCart: (id: string) => void
     cartItems: ItemType[]
@@ -15,7 +15,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, cartItems, onRemoveCart}) 
                 <h2>Корзина<img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"
                                 onClick={onclickClose}/></h2>
                 {cartItems.length > 0
-                    ? <div>
+                    ? <div className="cartItemsBlock">
                         <div className="items">
                             {cartItems.map((item, index) => (
                                 <div className="cartItem" key={index}>
@@ -46,17 +46,13 @@ export const Drawer: FC<DrawerType> = ({onclickClose, cartItems, onRemoveCart}) 
                             </button>
                         </div>
                     </div>
-                    : <div className="cartEmpty">
-                        <img className="emptyImage" src="/img/empty-cart.jpg" alt="EmptyCart"/>
-                        <p>Добавьте хотя бы одну пару кроссовок, стобы сделать заказ.</p>
-                        <button onClick={onclickClose} className="greenButton">
-                            <img className="imgArrow" src="/img/arrow.svg" alt="Arrow" />Вернуться назад
-                        </button>
-                    </div>
-                }
-
-
-
+                    : (
+                        <Info title="Корзина пуста"
+                              description="Добавьте хотя бы одну пару кроссовок, стобы сделать заказ."
+                              image="/img/empty-cart.jpg"
+                              onclickClose={onclickClose}
+                             />
+                    )}
             </div>
         </div>
     );
