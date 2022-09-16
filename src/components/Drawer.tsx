@@ -1,20 +1,52 @@
-import React, {FC} from 'react';
-import {ItemType} from "../App";
+import React, {FC, useContext, useState} from 'react';
 import {Info} from "./Info";
+import {AppContext} from "../context";
+import axios from "axios";
 
 type DrawerType = {
     onclickClose: () => void
     onRemoveCart: (id: string) => void
-    cartItems: ItemType[]
 }
 
-export const Drawer: FC<DrawerType> = ({onclickClose, cartItems, onRemoveCart}) => {
+const delay = (ms:number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart}) => {
+
+    const [isOrderComplete, setIsOrderComplete] = useState(false);
+    const [orderId, setOrderId] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const {setCartItems, cartItems} = useContext(AppContext)
+    const totalPrice = (cartItems?.reduce((sum,obj) => obj.price + sum, 0 ))
+
+    const onclickOrder = async () => {
+        try {
+            setIsLoading(true)
+            const {data} = await axios.post('https://631dce89cc652771a48ba100.mockapi.io/orders',
+                {items: cartItems})
+            setOrderId(data.id)
+            setIsOrderComplete(true)
+            setCartItems && setCartItems([])
+
+
+            for (let i = 0; i < Number(cartItems && cartItems.length); i++) {
+                const item = cartItems && cartItems[i]
+                await axios.delete('https://631dce89cc652771a48ba100.mockapi.io/orders' + item?.id)
+                await delay(1000)
+            }
+
+        } catch (e) {
+            alert("Ошибка при создании заказа :(")
+        }
+        setIsLoading(false)
+    }
+
     return (
         <div className="overlay">
             <div className="drawer">
                 <h2>Корзина<img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"
                                 onClick={onclickClose}/></h2>
-                {cartItems.length > 0
+                {cartItems && cartItems.length > 0
                     ? <div className="cartItemsBlock">
                         <div className="items">
                             {cartItems.map((item, index) => (
@@ -34,24 +66,28 @@ export const Drawer: FC<DrawerType> = ({onclickClose, cartItems, onRemoveCart}) 
                                 <li>
                                     <span>Итого:</span>
                                     <div></div>
-                                    <b>21 498 руб.</b>
+                                    <b>{totalPrice} руб.</b>
                                 </li>
                                 <li>
                                     <span>Налог 5%</span>
                                     <div></div>
-                                    <b>1074 руб.</b>
+                                    <b>{totalPrice && totalPrice * 0.05} руб.</b>
                                 </li>
                             </ul>
-                            <button className="greenButton">Оформить заказ <img src="./img/arrow.svg" alt="Arrow"/>
+                            <button disabled={isLoading} onClick={onclickOrder} className="greenButton">Оформить
+                                заказ <img
+                                    src="./img/arrow.svg" alt="Arrow"/>
                             </button>
                         </div>
                     </div>
                     : (
-                        <Info title="Корзина пуста"
-                              description="Добавьте хотя бы одну пару кроссовок, стобы сделать заказ."
-                              image="/img/empty-cart.jpg"
-                              onclickClose={onclickClose}
-                             />
+                        <Info title={isOrderComplete ? "Заказ оформлен" : "Корзина пуста"}
+                              description={isOrderComplete
+                                  ? `Ваш заказ №${orderId} скоро будет передан курьерской доставке`
+                                  : "Добавьте хотя бы одну пару кроссовок, стобы сделать заказ."}
+                              image={isOrderComplete ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}
+                              onclickClose ={onclickClose}
+                        />
                     )}
             </div>
         </div>

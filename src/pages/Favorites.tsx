@@ -1,5 +1,4 @@
-import React, {FC, useContext} from 'react';
-import {ItemType} from "../App";
+import React, {useContext} from 'react';
 import {Card} from "../components/Card";
 import {AppContext} from "../context";
 

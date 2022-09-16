@@ -40,7 +40,6 @@ export const Home: FC<HomeType> = ({items,
                 price={item.price}
                 onClickFavorite={(obj) => onAddToFavorite(obj)}
                 onClickPlus={(obj) => onAddToCart(obj)}
-               // isAdd={isItemAdded && isItemAdded(item.id)}
                 isReady={isReady}
             />))
     }

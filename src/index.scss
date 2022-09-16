@@ -30,7 +30,7 @@ header {
   display: flex;
   align-items: center;
 
-   img {
+  img {
     margin-right: 15px;
   }
 
@@ -52,7 +52,7 @@ header {
   li {
     list-style-type: none;
 
-      img {
+    img {
       margin: 0 20px 0 20px;
 
     }
@@ -155,7 +155,6 @@ header {
     .emptyImage {
       margin-bottom: 20px;
       width: 120px;
-      height: 120px;
     }
 
     p {
@@ -266,6 +265,10 @@ header {
   .greenButton {
     position: relative;
 
+    &:disabled {
+      animation: button-loading 0.6s ease-in-out infinite;
+    }
+
     &:hover {
       img {
         transform: translateX(5px);
@@ -293,12 +296,28 @@ header {
   cursor: pointer;
   transition: background 0.1s ease-in-out;
 
+  &:disabled {
+    background-color: #7e796f !important;
+    cursor: default;
+  }
+
   &:hover {
     background: lighten(#9dd558, 10%);
   }
 
   &:active {
     background: darken(#9dd558, 5%);
+  }
+}
+@keyframes button-loading {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

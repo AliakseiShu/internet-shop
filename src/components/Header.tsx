@@ -1,11 +1,14 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import {NavLink} from "react-router-dom";
+import {AppContext} from "../context";
 
 type HeaderType = {
     onclickOpenCart: () => void
 }
 
 export const Header: FC<HeaderType> = ({onclickOpenCart}) => {
+    const {cartItems} = useContext(AppContext)
+   const totalPrice = (cartItems?.reduce((sum,obj) => obj.price + sum, 0 ))
     return (
         <header>
                 <div className="headerLeft">
@@ -21,7 +24,7 @@ export const Header: FC<HeaderType> = ({onclickOpenCart}) => {
             <ul className="headerRight">
                 <li onClick={onclickOpenCart}>
                     <img width={18} height={18} src="./img/cart.svg" alt="Cart"/>
-                    <span>1205 руб.</span>
+                    <span>{totalPrice} руб.</span>
                 </li>
                 <li>
                     <NavLink to="/favorites">

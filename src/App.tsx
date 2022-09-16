@@ -22,7 +22,6 @@ export function App() {
     const [cartOpened, setCartOpened] = useState(false)
     const [isReady, setIsReady] = useState(true)
 
-
     useEffect(() => {
         async function fetchData() {
             const cartResponse = await axios.get('https://631dce89cc652771a48ba100.mockapi.io/cart')
@@ -51,7 +50,6 @@ export function App() {
         } catch (e) {
             const err = e as Error | AxiosError
             const error  = err.message
-
         }
     }
 
@@ -83,11 +81,10 @@ export function App() {
     }
 
     return (
-        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded, onAddToFavorite}}>
+        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded, onAddToFavorite, setCartItems}}>
             <div className="wrapper">
                 {cartOpened && <Drawer
                     onRemoveCart={onRemoveCart}
-                    cartItems={cartItems}
                     onclickClose={onclickClose}/>}
                 <Header
                     onclickOpenCart={onclickClose}
