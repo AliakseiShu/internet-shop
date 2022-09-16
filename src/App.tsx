@@ -7,6 +7,7 @@ import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
 import {Page404} from "./pages/Page404";
 import {AppContext} from './context';
+import {Orders} from "./pages/Orders";
 
 export type ItemType = {
     id: string
@@ -42,10 +43,10 @@ export function App() {
         try {
             if (cartItems.find(cartObj => cartObj.id === obj.id)) {
                 axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/${obj.id}`)
-                setCartItems(prev => prev.filter((item) => item.id !== obj.id))
+                setCartItems((prev:ItemType[]) => prev.filter((item) => item.id !== obj.id))
             } else {
                 const {data} = await axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
-                setCartItems((prev) => [...prev, data])
+                setCartItems((prev:ItemType[] ) => [...prev, data])
             }
         } catch (e) {
             const err = e as Error | AxiosError
@@ -81,7 +82,14 @@ export function App() {
     }
 
     return (
-        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded, onAddToFavorite, setCartItems}}>
+        <AppContext.Provider value={{favorites,
+            items,
+            cartItems,
+            isItemAdded,
+            onAddToFavorite,
+            setCartItems,
+            onAddToCart,
+        }}>
             <div className="wrapper">
                 {cartOpened && <Drawer
                     onRemoveCart={onRemoveCart}
@@ -99,6 +107,7 @@ export function App() {
                         />
                     }/>
                     <Route path={'/favorites'} element={<Favorites/>}/>
+                    <Route path={'/orders'} element={<Orders/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>

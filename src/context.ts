@@ -8,7 +8,8 @@ export type ContextTypes = {
     isItemAdded: (id: string) => boolean
     onAddToFavorite: (obj: ItemType) => void
     setCartOpened: (cartOpened:boolean) => void
-    setCartItems:([]:ItemType[]) => void
+    setCartItems: ([]:ItemType[]) => void
+    onAddToCart: (obj: ItemType) => void
 }
 
 export const AppContext = React.createContext<Partial<ContextTypes>>({})
