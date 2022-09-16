@@ -2,6 +2,7 @@ import React, {FC, useContext, useState} from 'react';
 import {Info} from "./Info";
 import {AppContext} from "../context";
 import axios from "axios";
+import {useCart} from "./hooks/useCart";
 
 type DrawerType = {
     onclickClose: () => void
@@ -16,8 +17,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart}) => {
     const [orderId, setOrderId] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const {setCartItems, cartItems} = useContext(AppContext)
-    const totalPrice = (cartItems?.reduce((sum,obj) => obj.price + sum, 0 ))
+    const {cartItems,setCartItems,totalPrice} = useCart()
 
     const onclickOrder = async () => {
         try {
