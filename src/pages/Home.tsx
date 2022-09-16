@@ -1,6 +1,7 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useContext, useState} from 'react';
 import {Card} from "../components/Card";
 import {ItemType} from "../App";
+import {AppContext} from "../context";
 
 type HomeType = {
     items: ItemType[]
@@ -8,10 +9,16 @@ type HomeType = {
     onAddToFavorite: (obj: ItemType) => void
     cartItems: ItemType[]
     isReady: boolean
+    //isItemAdded: (id:string) => void
 }
 
-export const Home: FC<HomeType> = ({items, onAddToCart, onAddToFavorite, cartItems, isReady}) => {
+export const Home: FC<HomeType> = ({items,
+                                       onAddToCart,
+                                       onAddToFavorite,
+                                       isReady,
+                                       }) => {
     const [searchValue, setSearchValue] = useState('')
+   // const {isItemAdded} = useContext(AppContext)
 
     const onChangeSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.currentTarget.value)
@@ -36,7 +43,7 @@ export const Home: FC<HomeType> = ({items, onAddToCart, onAddToFavorite, cartIte
                 price={item.price}
                 onClickFavorite={(obj) => onAddToFavorite(obj)}
                 onClickPlus={(obj) => onAddToCart(obj)}
-                isAdd={cartItems.some(obj => obj.id === item.id)}
+               // isAdd={isItemAdded && isItemAdded(item.id)}
                 isReady={isReady}
             />))
     }

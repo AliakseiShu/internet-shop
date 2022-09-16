@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
@@ -18,7 +18,7 @@ export type ItemType = {
 export function App() {
     const [items, setItems] = useState<ItemType[]>([])
     const [cartItems, setCartItems] = useState<ItemType[]>([])
-    const [favorites, setFavorites] = useState<ItemType[] >([])
+    const [favorites, setFavorites] = useState<ItemType[]>([])
     const [cartOpened, setCartOpened] = useState(false)
     const [isReady, setIsReady] = useState(true)
 
@@ -48,9 +48,10 @@ export function App() {
                 const {data} = await axios.post('https://631dce89cc652771a48ba100.mockapi.io/cart', obj)
                 setCartItems((prev) => [...prev, data])
             }
-        } catch (err: any) {
-            const error = err.message
-            console.log(error)
+        } catch (e) {
+            const err = e as Error | AxiosError
+            const error  = err.message
+
         }
     }
 
@@ -68,7 +69,7 @@ export function App() {
                 const {data} = await axios.post(`https://631dce89cc652771a48ba100.mockapi.io/favorites`, obj)
                 setFavorites((prev) => [...prev, data])
             }
-        } catch (error) {
+        } catch (e) {
             alert("Error")
         }
     }
@@ -77,8 +78,12 @@ export function App() {
         setCartOpened(!cartOpened)
     }
 
+    const isItemAdded = (id:string) => {
+        return cartItems.some((item) => item.id === id)
+    }
+
     return (
-        <AppContext.Provider value={{favorites, items, cartItems}}>
+        <AppContext.Provider value={{favorites, items, cartItems, isItemAdded}}>
             <div className="wrapper">
                 {cartOpened && <Drawer
                     onRemoveCart={onRemoveCart}

@@ -5,7 +5,6 @@ import {AppContext} from "../context";
 
 
 type FavoritesType = {
-    // favorites: ItemsType[]
     onAddToFavorite: (obj: ItemType) => void
 }
 
@@ -18,7 +17,7 @@ export const Favorites: FC<FavoritesType> = ({onAddToFavorite}) => {
                 <h1>Мои закладки</h1>
             </div>
             <div className="sneakers">
-                 {favorites?.map((item) =>
+                {favorites?.map((item) =>
                     <Card
                         key={item.id}
                         id={item.id}
