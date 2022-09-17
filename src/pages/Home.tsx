@@ -35,6 +35,7 @@ export const Home: FC<HomeType> = ({items,
             (<Card
                 key={index}
                 id={item.id}
+                parentId={item.parentId}
                 title={item.title}
                 imageUrl={item.imageUrl}
                 price={item.price}

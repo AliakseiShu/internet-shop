@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "./components/Header";
 import {Drawer} from "./components/Drawer/Drawer";
-import axios, {AxiosError} from "axios";
+import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
@@ -11,6 +11,7 @@ import {Orders} from "./pages/Orders";
 
 export type ItemType = {
     id: string
+    parentId: string
     imageUrl: string
     title: string
     price: number
@@ -91,7 +92,7 @@ export function App() {
     }
 
     const isItemAdded = (id: string) => {
-        return cartItems.some((item) => item.id === id)
+        return cartItems.some((item) => item.parentId === id)
     }
 
     return (

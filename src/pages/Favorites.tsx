@@ -16,6 +16,7 @@ export const Favorites = () => {
                     <Card
                         key={item.id}
                         id={item.id}
+                        parentId={item.parentId}
                         title={item.title}
                         imageUrl={item.imageUrl}
                         price={item.price}

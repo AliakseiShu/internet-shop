@@ -37,6 +37,7 @@ export const Orders = () => {
                     <Card
                         key={index}
                         id={item.id}
+                        parentId={item.parentId}
                         title={item.title}
                         imageUrl={item.imageUrl}
                         price={item.price}

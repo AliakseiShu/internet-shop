@@ -7,6 +7,7 @@ import {AppContext} from "../../context";
 
 type CardType = {
     id: string
+    parentId: string
     imageUrl: string
     title: string
     price: number
@@ -22,6 +23,7 @@ export const Card: FC<CardType> = ({
                                        imageUrl,
                                        title,
                                        price,
+                                       parentId,
                                        onClickPlus,
                                        onClickFavorite,
                                        isFavorited = false,
@@ -31,18 +33,21 @@ export const Card: FC<CardType> = ({
     const [isFavorite, setIsFavorite] = useState(isFavorited)
     const {isItemAdded} = useContext(AppContext)
 
-    const onClickAdd = (obj: ItemType) => {
+    const obj = {id, parentId: id, imageUrl, title, price}
+
+    const onClickAdd = () => {
         if (onClickPlus) {
             onClickPlus(obj)
         }
     }
 
-    const onClickLike = (obj: ItemType) => {
+    const onClickLike = () => {
         if (onClickFavorite) {
             onClickFavorite(obj)
         }
         setIsFavorite(!isFavorite)
     }
+
     return (
 
         <div className={styles.card}>
@@ -62,7 +67,7 @@ export const Card: FC<CardType> = ({
                 </ContentLoader>
                 : <>
                     {onClickFavorite && (<div className={styles.favorite}>
-                        <img onClick={() => onClickLike({id, imageUrl, title, price})}
+                        <img onClick= {onClickLike}
                              src={isFavorite ? "/img/liked.svg" : "./img/unliked.svg"} alt="Unliked"/>
                     </div>)}
                     <img width="100%" height={135} src={imageUrl}/>
@@ -73,9 +78,9 @@ export const Card: FC<CardType> = ({
                             <b>{price} руб.</b>
                         </div>
                         {onClickPlus && (<img className={styles.plus}
-                              onClick={() => onClickAdd({id, imageUrl, title, price})}
-                              src={isItemAdded && isItemAdded(id) ? "./img/btn-checked.svg" : "./img/btn-plus.svg"}
-                              alt="Plus"/>) }
+                                              onClick={onClickAdd}
+                                              src={isItemAdded && isItemAdded(id) ? "./img/btn-checked.svg" : "./img/btn-plus.svg"}
+                                              alt="Plus"/>)}
                     </div>
                 </>}
 
