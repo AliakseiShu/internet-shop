@@ -1,8 +1,8 @@
 import React, {FC, useState} from 'react';
 import axios from "axios";
 
-import {Info} from "../Info";
-import {useCart} from "../hooks/useCart";
+import {Info} from "../Info/Info";
+import {useCart} from "../../hooks/useCart";
 
 import styles from "./Drawer.module.scss";
 
@@ -31,13 +31,11 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => 
             setIsOrderComplete(true)
             setCartItems && setCartItems([])
 
-
             for (let i = 0; i < Number(cartItems && cartItems.length); i++) {
                 const item = cartItems && cartItems[i]
-                await axios.delete('https://631dce89cc652771a48ba100.mockapi.io/orders' + item?.id)
+                 await axios.delete(`https://631dce89cc652771a48ba100.mockapi.io/cart/` + item?.id)
                 await delay(1000)
             }
-
         } catch (e) {
             alert("Ошибка при создании заказа :(")
         }

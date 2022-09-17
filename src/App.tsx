@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Header} from "./components/Header";
+import {Header} from "./components/Header/Header";
 import {Drawer} from "./components/Drawer/Drawer";
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
@@ -7,6 +7,7 @@ import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
 import {AppContext} from './context';
 import {Orders} from "./pages/Orders";
+import {Page404} from "./pages/Page404";
 
 export type ItemType = {
     id: string
@@ -103,7 +104,6 @@ export function App() {
             onAddToCart,
         }}>
             <div className="wrapper">
-
                 <Drawer onRemoveCart={onRemoveCart} onclickClose={onclickClose} opened={cartOpened}/>
                 <Header
                     onclickOpenCart={onclickClose}
@@ -119,7 +119,7 @@ export function App() {
                     }/>
                     <Route path={'/favorites'} element={<Favorites/>}/>
                     <Route path={'/orders'} element={<Orders/>}/>
-                  {/*  <Route path={'/*'} element={<Page404/>}/>*/}
+                    <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
             </div>
         </AppContext.Provider>

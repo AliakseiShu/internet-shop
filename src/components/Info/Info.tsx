@@ -1,5 +1,4 @@
-import React, {FC, useContext} from 'react';
-import {AppContext} from "../context";
+import React, {FC} from 'react';
 
 type InfoType = {
     title: string
@@ -9,7 +8,6 @@ type InfoType = {
 }
 
 export const Info: FC<InfoType> = ({title, description, image,onclickClose}) => {
-    const {setCartOpened} = useContext(AppContext)
     return (
         <div className="cartEmpty">
             <img className="emptyImage" src={image} alt="EmptyCart"/>

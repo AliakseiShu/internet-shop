@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {NavLink} from "react-router-dom";
-import {useCart} from "./hooks/useCart";
+import {useCart} from "../../hooks/useCart";
 
 type HeaderType = {
     onclickOpenCart: () => void
