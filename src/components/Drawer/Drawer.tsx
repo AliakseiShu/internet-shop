@@ -1,17 +1,20 @@
-import React, {FC, useContext, useState} from 'react';
-import {Info} from "./Info";
-import {AppContext} from "../context";
+import React, {FC, useState} from 'react';
 import axios from "axios";
-import {useCart} from "./hooks/useCart";
+
+import {Info} from "../Info";
+import {useCart} from "../hooks/useCart";
+
+import styles from "./Drawer.module.scss";
 
 type DrawerType = {
     onclickClose: () => void
     onRemoveCart: (id: string) => void
+    opened: boolean
 }
 
 const delay = (ms:number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart}) => {
+export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => {
 
     const [isOrderComplete, setIsOrderComplete] = useState(false);
     const [orderId, setOrderId] = useState('');
@@ -42,8 +45,8 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart}) => {
     }
 
     return (
-        <div className="overlay">
-            <div className="drawer">
+        <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+            <div className={styles.drawer}>
                 <h2>Корзина<img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"
                                 onClick={onclickClose}/></h2>
                 {cartItems && cartItems.length > 0
