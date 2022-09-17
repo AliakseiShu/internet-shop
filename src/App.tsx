@@ -110,7 +110,7 @@ export function App() {
                     onclickOpenCart={onclickClose}
                 />
                 <Routes>
-                    <Route path="" element={
+                    <Route path="/" element={
                         <Home items={items}
                               onAddToCart={onAddToCart}
                               onAddToFavorite={onAddToFavorite}
@@ -118,8 +118,8 @@ export function App() {
                               isReady={isReady}
                         />
                     }/>
-                    <Route path={'favorites'} element={<Favorites/>}/>
-                    <Route path={'orders'} element={<Orders/>}/>
+                    <Route path={'/favorites'} element={<Favorites/>}/>
+                    <Route path={'/orders'} element={<Orders/>}/>
                   {/*  <Route path={'/*'} element={<Page404/>}/>*/}
                 </Routes>
             </div>

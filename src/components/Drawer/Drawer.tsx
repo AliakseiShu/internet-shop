@@ -88,7 +88,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => 
                               description={isOrderComplete
                                   ? `Ваш заказ №${orderId} скоро будет передан курьерской доставке`
                                   : "Добавьте хотя бы одну пару кроссовок, стобы сделать заказ."}
-                              image={isOrderComplete ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}
+                              image={isOrderComplete ? "img/complete-order.jpg" : "img/empty-cart.jpg"}
                               onclickClose ={onclickClose}
                         />
                     )}
