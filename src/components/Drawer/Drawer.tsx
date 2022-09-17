@@ -47,7 +47,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => 
     return (
         <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
             <div className={styles.drawer}>
-                <h2>Корзина<img className="cartItemRemove" src="./img/btn-remove.svg" alt="Btn-remove"
+                <h2>Корзина<img className="cartItemRemove" src="img/btn-remove.svg" alt="Btn-remove"
                                 onClick={onclickClose}/></h2>
                 {cartItems && cartItems.length > 0
                     ? <div className="cartItemsBlock">
@@ -60,7 +60,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => 
                                         <b>{item.price}</b>
                                     </div>
                                     <img className="cartItemRemove" onClick={() => onRemoveCart(item.id)}
-                                         src="./img/btn-remove.svg" alt="Btn-remove"/>
+                                         src="img/btn-remove.svg" alt="Btn-remove"/>
                                 </div>
                             ))}
                         </div>
@@ -79,7 +79,7 @@ export const Drawer: FC<DrawerType> = ({onclickClose, onRemoveCart, opened}) => 
                             </ul>
                             <button disabled={isLoading} onClick={onclickOrder} className="greenButton">Оформить
                                 заказ <img
-                                    src="./img/arrow.svg" alt="Arrow"/>
+                                    src="img/arrow.svg" alt="Arrow"/>
                             </button>
                         </div>
                     </div>

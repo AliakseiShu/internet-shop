@@ -12,7 +12,7 @@ export const Header: FC<HeaderType> = ({onclickOpenCart}) => {
         <header>
             <div className="headerLeft">
                 <NavLink to="/">
-                    <img width={40} height={40} src="./img/logo.png" alt="Logo"/>
+                    <img width={40} height={40} src="img/logo.png" alt="Logo"/>
                 </NavLink>
                 <div>
                     <h3>React Sneakers</h3>
@@ -22,17 +22,17 @@ export const Header: FC<HeaderType> = ({onclickOpenCart}) => {
 
             <ul className="headerRight">
                 <li onClick={onclickOpenCart}>
-                    <img width={18} height={18} src="./img/cart.svg" alt="Cart"/>
+                    <img width={18} height={18} src="img/cart.svg" alt="Cart"/>
                     <span>{totalPrice} руб.</span>
                 </li>
                 <li>
                     <NavLink to="/favorites">
-                        <img width={18} height={18} src="./img/heart.svg" alt="Heart"/>
+                        <img width={18} height={18} src="img/heart.svg" alt="Heart"/>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/orders">
-                        <img width={18} height={18} src="./img/user.svg" alt="User"/>
+                        <img width={18} height={18} src="img/user.svg" alt="User"/>
                     </NavLink>
                 </li>
             </ul>

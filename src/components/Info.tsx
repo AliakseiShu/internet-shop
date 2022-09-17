@@ -16,7 +16,7 @@ export const Info: FC<InfoType> = ({title, description, image,onclickClose}) => 
             <h2>{title}</h2>
             <p>{description}</p>
             <button onClick={onclickClose} className="greenButton">
-                <img className="imgArrow" src="/img/arrow.svg" alt="Arrow"/>Вернуться назад
+                <img className="imgArrow" src="img/arrow.svg" alt="Arrow"/>Вернуться назад
             </button>
         </div>
     );

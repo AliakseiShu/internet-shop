@@ -49,14 +49,14 @@ export const Home: FC<HomeType> = ({items,
             <div className="contentWrapper">
                 <h1>{searchValue ? `Поиск по запросу: ${searchValue}` : "Все кроссовки"}</h1>
                 <div className="searchBlock">
-                    <img src="./img/search.svg" alt="Search"/>
+                    <img src="img/search.svg" alt="Search"/>
                     <input value={searchValue}
                            onChange={onChangeSearchInput}
                            placeholder="Поиск..."/>
                     {searchValue &&
                         <img onClick={oncClearSearchInput}
                              className="clear"
-                             src="./img/btn-remove.svg"
+                             src="img/btn-remove.svg"
                              alt="Clear"/>}
                 </div>
             </div>
