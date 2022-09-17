@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Page404 = () => {
+/*export const Page404 = () => {
 
     return (
         <div className="content">
@@ -10,4 +10,4 @@ export const Page404 = () => {
             <div className="sneakers"></div>
         </div>
     );
-};
+};*/

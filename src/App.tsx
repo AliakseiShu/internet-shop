@@ -5,7 +5,6 @@ import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./pages/Home";
 import {Favorites} from "./pages/Favorites";
-import {Page404} from "./pages/Page404";
 import {AppContext} from './context';
 import {Orders} from "./pages/Orders";
 
