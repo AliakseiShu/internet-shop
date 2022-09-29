@@ -41,7 +41,6 @@ export function App() {
                 console.error(e)
             }
         }
-
         fetchData()
     }, [])
 

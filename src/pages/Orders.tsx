@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card} from "../components/Card";
-import {AppContext} from "../context";
 import axios from "axios";
 import {ItemType} from "../App";
 
@@ -21,8 +20,6 @@ export const Orders = () => {
             }
         })()
     }, [])
-
-    const {onAddToFavorite, onAddToCart} = useContext(AppContext)
 
     return (
         <div className="content">

@@ -23,7 +23,6 @@ export const Card: FC<CardType> = ({
                                        imageUrl,
                                        title,
                                        price,
-                                       parentId,
                                        onClickPlus,
                                        onClickFavorite,
                                        isFavorited = false,
